@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias - IQartil</title>
+    <link rel="stylesheet" href="css/noticias.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        #barra-indicadores {
+            background: #222;
+            color: white;
+            padding: 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .indicadores-container {
+            display: flex;
+            justify-content: space-around;
+            animation: scrollIndicadores 20s linear infinite;
+        }
+        .indicador {
+            margin: 0 15px;
+        }
+        .positivo { color: #00ff00; }
+        .negativo { color: #ff0000; }
+        @keyframes scrollIndicadores {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+        header {
+            background: #005f73;
+            padding: 15px 0;
+            text-align: center;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #94d2bd;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+        .submenu a {
+            display: block;
+            padding: 5px;
+            color: black;
+        }
+        nav ul li:hover .submenu {
+            display: block;
+        }
+        .noticias {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .noticia {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .noticia h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .noticia img {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="barra-indicadores">
+        <div class="indicadores-container">
+            <div class="indicador">💲 Dólar: <span class="negativo">$36.740,43</span></div>
+            <div class="indicador">📉 Euro: <span class="negativo">€1.08 (-0,3%)</span></div>
+            <div class="indicador">📊 NASDAQ: <span class="positivo">14,200 (+0,8%)</span></div>
+            <div class="indicador">🏦 IPC: <span class="positivo">3,2% (+0,1%)</span></div>
+            <div class="indicador">🛢️ Petróleo: <span class="negativo">$78.25 (-1,2%)</span></div>
+        </div>
+    </div>
+
+    <header>
+        <h1>Últimas Noticias de Comercio Exterior</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="#">Noticias</a>
+                    <div class="submenu">
+                        <a href="#">Colombia</a>
+                        <a href="#">EE.UU.</a>
+                        <a href="#">Brasil</a>
+                        <a href="#">Europa</a>
+                        <a href="#">Asia</a>
+                    </div>
+                </li>
+                <li><a href="mercados.html">Mercados</a></li>
+                <li><a href="indicadores.html">Indicadores</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="noticias">
+        <div class="noticia">
+            <h2>Colombia: Crecimiento del PIB en 2025</h2>
+            <p>El gobierno colombiano espera un crecimiento del 3.5%.</p>
+            <img src="img/colombia.jpg" alt="Crecimiento PIB">
+        </div>
+        <div class="noticia">
+            <h2>EE.UU.: Inflación en aumento</h2>
+            <p>Los precios al consumidor suben un 0,4% en enero.</p>
+            <img src="img/estados.jpg" alt="Inflación">
+        </div>
+        <div class="noticia">
+            <h2>Brasil: Producción de aluminio récord</h2>
+            <p>Las exportaciones han aumentado un 12% en el último trimestre.</p>
+            <img src="img/brasil.jpg" alt="Aluminio en Brasil">
+        </div>
+        <div class="noticia">
+            <h2>Europa: Nuevas regulaciones de importación</h2>
+            <p>La UE planea aumentar los aranceles en ciertos productos electrónicos.</p>
+            <img src="images/europa-comercio.jpg" alt="Regulaciones en Europa">
+        </div>
+        <div class="noticia">
+            <h2>Asia: Crecimiento del comercio en China</h2>
+            <p>China reporta un aumento del 7% en exportaciones.</p>
+            <img src="images/china-exportaciones.jpg" alt="Exportaciones China">
+        </div>
+    </section>
+</body>
+</html>
