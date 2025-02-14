@@ -1,0 +1,17 @@
+[
+    {
+        "titulo": "Exportaciones latinoamericanas en aumento",
+        "descripcion": "Suramérica aumentó 10% en exportaciones y 16% en importaciones entre 2019 y 2023.",
+        "imagen": "img/exportaciones.jpg"
+    },
+    {
+        "titulo": "Nuevas regulaciones en importaciones",
+        "descripcion": "El gobierno anuncia nuevas regulaciones para la importación de productos electrónicos.",
+        "imagen": "img/importaciones.jpg"
+    },
+    {
+        "titulo": "Acuerdo comercial entre Europa y Asia",
+        "descripcion": "Se firma un nuevo acuerdo que beneficiará a las empresas exportadoras.",
+        "imagen": "img/acuerdo.jpg"
+    }
+]

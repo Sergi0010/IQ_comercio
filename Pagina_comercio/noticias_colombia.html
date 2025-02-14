@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias de Colombia - IQartil</title>
+    <link rel="stylesheet" href="css/noticias.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #005f73;
+            padding: 15px 0;
+            text-align: center;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #94d2bd;
+        }
+        .noticias {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .noticia {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .noticia h2 {
+            font-size: 18px;
+        }
+        .noticia img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Noticias de Colombia</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="mercados.html">Mercados</a></li>
+                <li><a href="indicadores.html">Indicadores</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="noticias">
+        <div class="noticia">
+            <h2>Colombia: Crecimiento del PIB en 2025</h2>
+            <p>El gobierno colombiano espera un crecimiento del 3.5%.</p>
+            <img src="img/colombia.jpg" alt="Crecimiento PIB">
+        </div>
+        <div class="noticia">
+            <h2>Exportaciones de café aumentan un 10%</h2>
+            <p>Colombia reporta un incremento significativo en las ventas de café al exterior.</p>
+            <img src="img/cafe.jpg" alt="Exportaciones de café">
+        </div>
+        <div class="noticia">
+            <h2>Nuevo tratado comercial con la Unión Europea</h2>
+            <p>El gobierno colombiano firma un acuerdo que favorecerá la exportación de productos agrícolas.</p>
+            <img src="img/colombia_europa.jpg" alt="Tratado comercial">
+        </div>
+        <div class="noticia">
+            <h2>Inversión extranjera crece en el sector tecnológico</h2>
+            <p>Empresas internacionales invierten en startups y desarrollo digital en Colombia.</p>
+            <img src="img/inversion_extranjera.jpg" alt="Inversión en tecnología">
+        </div>
+        <div class="noticia">
+            <h2>El turismo impulsa la economía colombiana</h2>
+            <p>El aumento del turismo internacional genera nuevas oportunidades económicas en el país.</p>
+            <img src="images/turismo.jpg" alt="Turismo en Colombia">
+        </div>
+        <div class="noticia">
+            <h2>Colombia impulsa energías renovables</h2>
+            <p>El país invierte en proyectos de energía solar y eólica para reducir su dependencia de combustibles fósiles.</p>
+            <img src="images/energia.jpg" alt="Energías renovables en Colombia">
+        </div>
+    </section>
+</body>
+</html>
