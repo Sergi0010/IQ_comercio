@@ -508,8 +508,11 @@ function mostrarInfoPais(pais) {
     const region = document.getElementById('region-selector').value;
     const selectedInfo = paises[region][Object.keys(paises[region]).find(key => paises[region][key].nombre === pais)];
     
+    // Redirección para países específicos
     if (pais === "Argentina") {
         window.location.href = "argentina.html"; // Redirige a la página de Argentina
+    } else if (pais === "Alemania") {
+        window.location.href = "alemania.html"; // Redirige a la página de Alemania
     } else if (selectedInfo) {
         const infoDiv = document.getElementById('info-pais');
         infoDiv.innerHTML = `
@@ -524,27 +527,6 @@ function mostrarInfoPais(pais) {
         document.getElementById('news-list').innerHTML = ''; // Limpiar noticias si no hay país seleccionado
     }
 }
-function mostrarInfoPais(pais) {
-    const region = document.getElementById('region-selector').value;
-    const selectedInfo = paises[region][Object.keys(paises[region]).find(key => paises[region][key].nombre === pais)];
-    
-    if (pais === "Alemania") {
-        window.location.href = "alemania.html"; // Redirige a la página de Argentina
-    } else if (selectedInfo) {
-        const infoDiv = document.getElementById('info-pais');
-        infoDiv.innerHTML = `
-            <h2>Información de Comercio: ${selectedInfo.nombre}</h2>
-            <button class="button" onclick="mostrarParticipacion('${selectedInfo.participacion}')">Participación de Comercio</button>
-            <button class="button" onclick="mostrarRequisitos(${JSON.stringify(selectedInfo.requisitos)})">Requisitos para Comercio</button>
-        `;
-        mostrarGraficoComercio(selectedInfo.nombre);
-        mostrarNoticiasPorPais(selectedInfo.nombre); // Llamar a la función para mostrar noticias
-    } else {
-        document.getElementById('info-pais').innerHTML = '';
-        document.getElementById('news-list').innerHTML = ''; // Limpiar noticias si no hay país seleccionado
-    }
-}
-
 function mostrarParticipacion(participacion) {
     alert(participacion);
 }
