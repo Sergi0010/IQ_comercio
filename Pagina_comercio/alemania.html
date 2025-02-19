@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alemania - AI-COMEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+      color: #343a40;
+      line-height: 1.6;
+  }
+  .menu {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px;
+              margin-bottom: 20px;
+          }
+  
+          .btn {
+              flex: 1 1 200px;
+              padding: 15px;
+              background-color: #007bff;
+              color: white;
+              border-radius: 5px;
+              text-decoration: none;
+              transition: background-color 0.3s;
+              text-align: center;
+          }
+  
+          .btn:hover {
+              background-color: #0056b3;
+          }
+  
+  header {
+      background-color: #003366;
+      padding: 15px 5%;
+      text-align: center;
+      border-bottom: 5px solid #0056b3;
+  }
+  
+  header h1 {
+      font-size: 2rem;
+      margin: 0;
+      color: white;
+  }
+  
+  header p {
+      font-size: 0.9rem;
+      margin: 5px 0;
+      color: white;
+  }
+  
+  .barra {
+      display: flex;
+      overflow: hidden;
+      white-space: nowrap;
+      background: linear-gradient(90deg, #003366, #0056b3);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      align-items: center;
+  }
+  
+  .indicadores {
+      display: flex;
+      animation: deslizar 15s linear infinite;
+      overflow: hidden;
+  }
+  
+  @keyframes deslizar {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+  }
+  
+  .indicador {
+      margin: 0 10px;
+      padding: 8px 12px;
+      background: #495057;
+      border-radius: 5px;
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+  }
+  
+  .indicador:hover {
+      background: #007bff;
+      transform: scale(1.05);
+  }
+  
+  .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  h2 {
+      color: #007bff;
+      margin-top: 20px; /* Reducción del margen superior */
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 5px;
+  }
+  
+  ul {
+      list-style-type: square;
+      padding-left: 20px;
+  }
+  
+  .mapa {
+      text-align: center;
+      margin-top: 20px;
+  }
+  
+  iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 5px;
+      border: 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .requisitos-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+  }
+  
+  .requisitos {
+      flex: 1 1 calc(48% - 20px);
+      box-sizing: border-box;
+      background: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .requisitos img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+  }
+  
+  .participacion {
+      text-align: center;
+      margin-top: 20px;
+  }
+  
+  .noticias {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e9ecef;
+  }
+  
+  .noticias-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+  }
+  
+  .noticia {
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .noticia:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .noticia h4 {
+      margin: 15px;
+      color: #007bff;
+  }
+  
+  .noticia img {
+      width: 100%;
+      height: auto;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+  }
+  
+  .footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      margin-top: 40px;
+  }
+  
+  .footer p {
+      margin: 5px 0;
+  }
+  
+  .btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      margin: 5px;
+  }
+  
+  .btn:hover {
+      background-color: #0056b3;
+  }
+  
+  .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: white;
+      margin: 10px;
+  }
+  
+  .hidden-menu {
+      display: none;
+      background: #007bff;
+      padding: 15px;
+      border-radius: 5px;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      z-index: 1000;
+  }
+  
+  .hidden-menu.active {
+      display: block;
+  }
+  
+  @media (max-width: 600px) {
+      .container {
+          padding: 10px;
+      }
+  
+      iframe {
+          height: 200px;
+      }
+  
+      .noticias-grid {
+          grid-template-columns: 1fr;
+      }
+  
+      .menu-toggle {
+          display: block;
+      }
+  
+      .requisitos {
+          flex: 1 1 100%;
+      }
+  }
+  
+  .menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px; /* Espacio entre botones */
+      margin-bottom: 20px; /* Espacio debajo del menú */
+  }
+  
+  .menu h2 {
+      margin: 0; /* Eliminar márgenes para los títulos */
+  }
+  
+  .btn {
+      flex: 1 0 auto; /* Permitir que los botones se ajusten a su contenido */
+      padding: 10px 15px; /* Espaciado interno para los botones */
+      cursor: pointer; /* Cambiar el cursor al pasar sobre los botones */
+  }
+  
+  .filter-container {
+      margin: 20px 0; /* Espaciado para el contenedor de filtro */
+  }
+      </style>
+</head>
+<body>
+<header>
+    <h1>Información de Comercio: Alemania</h1>
+    <div class="barra">
+        <div class="indicadores">
+            <div class="indicador" onclick="mostrarInfoIndicador('petroleo')">Petróleo Brent: US$ 75.00 <span class="positivo">+0.50</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('cafe')">Café: US$ 4.00 <span class="negativo">-0.05</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('oro')">Oro: €3,500,000 <span class="positivo">+400.00</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('tasa_usura')">Tasa de Usura: 23.00% <span class="positivo">+1.2%</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('dtf')">DTF: 7.00% <span class="positivo">+0.01%</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('cobre')">Cobre: US$ 5.00 <span class="positivo">+0.20</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('plata')">Plata: US$ 24.00 <span class="positivo">+0.10</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('maiz')">Maíz: US$ 5.50 <span class="positivo">+0.01</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('trigo')">Trigo: US$ 5.00 <span class="positivo">+0.02</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('soja')">Soja: US$ 13.00 <span class="positivo">+0.04</span></div>
+        </div>
+    </div>
+    <a href="index.html" class="btn">Volver a Seleccionar País</a>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+</header>
+
+<div class="hidden-menu" id="hiddenMenu">
+    <div class="container">
+        <div class="item datalist-container">
+            <input type="text" id="search-country" placeholder="Buscar país..." onkeyup="filtrarPaises()">
+            <button onclick="buscarPais()">Buscar</button>
+        </div>
+        
+        <div class="item">
+            <select id="region-selector" onchange="mostrarPaisSelector(this.value)">
+                <option value="">Selecciona una región</option>
+                <option value="america">América</option>
+                <option value="europa">Europa</option>
+                <option value="asia">Asia</option>
+            </select>
+        </div>
+        
+        <div class="item" id="pais-container" style="display: none;">
+            <select id="pais-selector" onchange="mostrarInfoPais(this.value)">
+                <option value="">Selecciona un país</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="filter-container">
+        <h3>Filtrar Noticias</h3>
+        <select id="category-selector" onchange="filtrarNoticiasPorCategoria(this.value)">
+            <option value="">Todas las categorías</option>
+            <option value="economia">Economía</option>
+            <option value="politica">Política</option>
+            <option value="tecnologia">Tecnología</option>
+        </select>
+    </div>
+
+    <div id="news-container">
+        <h3 id="news-title">Últimas Noticias</h3>
+        <div id="news-list" class="noticias-globales"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="menu">
+        <button onclick="mostrarSeccion('ventajas')" class="btn">Ver Ventajas</button>
+        <button onclick="mostrarSeccion('mapa')" class="btn">Ver Mapa</button>
+        <button onclick="mostrarSeccion('datos-economicos')" class="btn">Ver Datos Económicos</button>
+        <button onclick="mostrarSeccion('requisitos')" class="btn">Ver Requisitos</button>
+        <button onclick="mostrarSeccion('participacion')" class="btn">Ver Participación</button>
+    </div>
+
+    <div id="ventajas" class="seccion" style="display:none;">
+        <ul>
+            <li><strong>Estabilidad económica:</strong> Alemania es la economía más grande de Europa.</li>
+            <li><strong>Acceso a mercados:</strong> Parte de la Unión Europea, facilitando el comercio.</li>
+            <li><strong>Innovación y tecnología:</strong> Alto nivel de inversión en investigación y desarrollo.</li>
+        </ul>
+    </div>
+    
+    <div id="mapa" class="seccion" style="display:none;">
+        <div class="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624901.832783002!2d9.302749679188837!3d51.16569114345211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b30b47b0d5f51f%3A0x4c0c6e0c47e10f5e!2sAlemania!5e0!3m2!1ses!2sus!4v1616164820133!5m2!1ses!2sus" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="datos-economicos" class="seccion" style="display:none;">
+        <p>Alemania es una de las economías más robustas del mundo, con un crecimiento sostenido. En 2025, se espera un crecimiento del PIB del 2.5% impulsado por la industria automotriz y la tecnología. <a href="https://www.bundesbank.de/en" target="_blank">Más información sobre la economía de Alemania</a>.</p>
+    </div>
+
+    <div id="requisitos" class="seccion" style="display:none;">
+        <div class="requisitos-container">
+            <div class="requisitos">
+                <h3>Licencia de Importación</h3>
+                <p>Para importar productos a Alemania, es obligatorio contar con una licencia que puede variar según el tipo de mercancía.</p>
+                <img src="img/licencia-a.jpg" alt="Licencia de Importación">
+                <p><a href="https://www.zoll.de/EN/Home/home_node.html" target="_blank">Solicita tu licencia aquí</a></p>
+            </div>
+
+            <div class="requisitos">
+                <h3>Certificado de Origen</h3>
+                <p>Este documento acredita el país de fabricación de los productos importados y es esencial para beneficios arancelarios.</p>
+                <img src="img/cert-a.jpg" alt="Certificado de Origen">
+                <p><a href="https://www.dihk.de/en/services/international/certificate-of-origin" target="_blank">Más información sobre el certificado</a></p>
+            </div>
+
+            <div class="requisitos">
+                <h3>Documentación Aduanera</h3>
+                <p>Todos los envíos internacionales deben cumplir con los requisitos aduaneros establecidos por la aduana alemana.</p>
+                <img src="img/doc.jpg" alt="Documentación Aduanera">
+                <p><a href="https://www.zoll.de/EN/Businesses/Import/Import-Requirements/import-requirements_node.html" target="_blank">Requisitos aduaneros detallados</a></p>
+            </div>
+
+            <div class="requisitos">
+                <h3>Registro de Empresa en Alemania</h3>
+                <p>Las empresas extranjeras que deseen operar en Alemania deben registrarse en el Registro Mercantil.</p>
+                <img src="img/ss.jpg" alt="Registro de Empresa">
+                <p><a href="https://www.handelsregister.de/" target="_blank">Cómo registrar una empresa</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="participacion" class="seccion" style="display:none;">
+        <p>Participa en nuestras iniciativas y eventos para fortalecer el comercio internacional y fomentar las relaciones comerciales. Mantente informado sobre oportunidades y programas de participación en el comercio.</p>
+        <img src="img/participacion-a.jpg" alt="Participación en Comercio" style="width: 100%; height: auto; border-radius: 5px;">
+    </div>
+</div>
+
+<h2>Noticias</h2>
+<div class="noticias">
+    <h3>Titulares Recientes</h3>
+    <div class="noticias-grid">
+        <div class="noticia">
+            <h4>Reforma Fiscal en Alemania</h4>
+            <p>Nuevas medidas para fomentar la inversión extranjera.</p>
+            <img src="img/alemania.jpg" alt="Noticia 1">
+        </div>
+        <div class="noticia">
+            <h4>Acuerdo Comercial con Asia</h4>
+            <p>Se espera que genere nuevas oportunidades de negocio.</p>
+            <img src="img/alemania2.jpg" alt="Noticia 2">
+        </div>
+        <div class="noticia">
+            <h4>Crecimiento del PIB</h4>
+            <p>Proyecciones positivas para el 2025 a pesar de la inflación.</p>
+            <img src="img/alemania3.jpg" alt="Noticia 3">
+        </div>
+        <div class="noticia">
+            <h4>Iniciativas de Sostenibilidad</h4>
+            <p>Alemania avanza en políticas de comercio sostenible.</p>
+            <img src="img/alemania4.jpg" alt="Noticia 4">
+        </div>
+        <div class="noticia">
+            <h4>Innovación Tecnológica</h4>
+            <p>Nuevas startups emergen en el sector tecnológico alemán.</p>
+            <img src="https://via.placeholder.com/300x200" alt="Noticia 5">
+        </div>
+        <div class="noticia">
+            <h4>Exportaciones de Maquinaria</h4>
+            <p>Incremento en las exportaciones de maquinaria y equipo.</p>
+            <img src="https://via.placeholder.com/300x200" alt="Noticia 6">
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2025 AI-COMEX. Todos los derechos reservados.</p>
+</footer>
+<script>
+    function mostrarSeccion(id) {
+        const secciones = document.querySelectorAll('.seccion');
+        secciones.forEach(seccion => {
+            seccion.style.display = 'none'; // Oculta todas las secciones
+        });
+        document.getElementById(id).style.display = 'block'; // Muestra la sección seleccionada
+    }
+
+    function toggleMenu() {
+        const menu = document.getElementById('hiddenMenu');
+        menu.classList.toggle('active'); // Muestra u oculta el menú
+    }
+
+    function filtrarPaises() {
+        const input = document.getElementById('search-country').value.toLowerCase();
+        const paisSelector = document.getElementById('pais-selector');
+        const opciones = paisSelector.getElementsByTagName('option');
+        
+        for (let i = 0; i < opciones.length; i++) {
+            const opcion = opciones[i];
+            if (opcion.text.toLowerCase().includes(input)) {
+                opcion.style.display = 'block'; // Muestra la opción si coincide
+            } else {
+                opcion.style.display = 'none'; // Oculta la opción si no coincide
+            }
+        }
+    }
+
+    function buscarPais() {
+        const paisSelector = document.getElementById('pais-selector');
+        const paisSeleccionado = paisSelector.options[paisSelector.selectedIndex].value;
+        if (paisSeleccionado) {
+            // Lógica para mostrar información del país seleccionado
+            console.log(`Información de: ${paisSeleccionado}`);
+        }
+    }
+
+    function mostrarPaisSelector(region) {
+        const paisContainer = document.getElementById('pais-container');
+        if (region) {
+            paisContainer.style.display = 'block'; // Muestra el selector de países
+            // Aquí puedes cargar los países según la región seleccionada
+        } else {
+            paisContainer.style.display = 'none'; // Oculta el selector si no hay región seleccionada
+        }
+    }
+
+    function filtrarNoticiasPorCategoria(categoria) {
+        const noticias = document.querySelectorAll('.noticia');
+        noticias.forEach(noticia => {
+            if (categoria === "" || noticia.innerText.toLowerCase().includes(categoria.toLowerCase())) {
+                noticia.style.display = 'block'; // Muestra la noticia si coincide
+            } else {
+                noticia.style.display = 'none'; // Oculta la noticia si no coincide
+            }
+        });
+    }
+
+    function mostrarInfoIndicador(indicador) {
+        // Lógica para mostrar información adicional sobre el indicador seleccionado
+        console.log(`Información sobre el indicador: ${indicador}`);
+    }
+</script>

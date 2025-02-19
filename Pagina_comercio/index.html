@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-COMEX</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #a0c4ff, #e0e0e0);
+            color: #343a40;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #2c2c2c;
+            color: #f8f9fa;
+        }
+        header {
+            background-color: #003366;
+            padding: 15px 5%;
+            text-align: center;
+            border-bottom: 5px solid #0056b3;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: white;
+        }
+        header p {
+            font-size: 0.9rem;
+            margin: 5px 0;
+            color: white;
+        }
+        .barra {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            background: linear-gradient(90deg, #003366, #0056b3);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            align-items: center;
+        }
+        .language-selector {
+            margin-left: auto;
+        }
+        .language-selector select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .indicadores {
+            display: flex;
+            animation: deslizar 15s linear infinite;
+            overflow: hidden; /* Hide overflow for animation */
+        }
+        @keyframes deslizar {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .indicador {
+            margin: 0 10px;
+            padding: 8px 12px;
+            background: #495057;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+            cursor: pointer; /* Pointer cursor for clickable */
+        }
+        .indicador:hover {
+            background: #007bff;
+            transform: scale(1.05);
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 5%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1 1 150px; /* Allow items to grow and shrink */
+        }
+        button, select, input {
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        select {
+            width: 150px;
+        }
+        input[type="text"] {
+            width: 150px;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        #info-pais {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        #news-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #news-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .noticia {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            animation: slideIn 1s ease-in-out;
+            transition: transform 0.3s; /* Transition for hover effect */
+        }
+        .noticia:hover {
+            transform: translateY(-5px); /* Move up on hover */
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .noticia img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .noticias-globales {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .dark-mode button {
+            background-color: #0056b3;
+        }
+        .dark-mode button:hover {
+            background-color: #003d80;
+        }
+        .filter-container {
+            margin: 20px;
+            text-align: center;
+        }
+        .filter-container select {
+            margin-right: 10px;
+        }
+        .filter-container button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .filter-container button img {
+            width: 30px;
+            height: 30px;
+        }
+        .menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .btn {
+        flex: 1 1 150px; /* Ajustar el tamaño de los botones */
+        padding: 10px; /* Reducir el padding */
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        text-align: center;
+        font-size: 0.9rem; /* Reducir el tamaño de la fuente */
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack items vertically on smaller screens */
+                align-items: center;
+            }
+
+            .item {
+                width: 100%; /* Full width for items */
+                justify-content: center; /* Center items */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 id="title">AI-COMEX</h1>
+    <p>Información y Comercio Internacional</p>
+    <div class="barra">
+        <div class="indicadores">
+            <div class="indicador" onclick="mostrarInfoIndicador('petroleo')">Petróleo WTI: US$ 71.93 <span class="positivo">+0.77</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('cafe')">Café: US$ 4.20 <span class="negativo">-0.01</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('oro')">Oro: $3,678,049 <span class="positivo">+500.53</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('tasa_usura')">Tasa de Usura: 26.30% <span class="positivo">+1.4%</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('dtf')">DTF: 9.27% <span class="positivo">+0.02%</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('cobre')">Cobre: US$ 4.50 <span class="positivo">+0.10</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('plata')">Plata: US$ 25.00 <span class="positivo">+0.05</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('maiz')">Maíz: US$ 6.00 <span class="positivo">+0.02</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('trigo')">Trigo: US$ 5.50 <span class="positivo">+0.01</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('soja')">Soja: US$ 14.00 <span class="positivo">+0.03</span></div>
+        </div>
+        <div class="language-selector">
+            <select id="language" onchange="cambiarIdioma(this.value)">
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="fr">🇫🇷 Français</option>
+            </select>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="item datalist-container">
+        <input type="text" id="search-country" placeholder="Buscar país..." onkeyup="filtrarPaises()">
+        <button onclick="buscarPais()">Buscar</button>
+    </div>
+    
+    <div class="item">
+        <select id="region-selector" onchange="mostrarPaisSelector(this.value)">
+            <option value="">Selecciona una región</option>
+            <option value="america">América</option>
+            <option value="europa">Europa</option>
+            <option value="asia">Asia</option>
+        </select>
+    </div>
+    
+    <div class="item" id="pais-container" style="display: none;">
+        <select id="pais-selector" onchange="mostrarInfoPais(this.value)">
+            <option value="">Selecciona un país</option>
+        </select>
+    </div>
+</div>
+
+<div class="filter-container">
+    <h3>Filtrar Noticias</h3>
+    <select id="category-selector" onchange="filtrarNoticiasPorCategoria(this.value)">
+        <option value="">Todas las categorías</option>
+        <option value="economia">Economía</option>
+        <option value="politica">Política</option>
+        <option value="tecnologia">Tecnología</option>
+    </select>
+</div>
+
+<div id="news-container">
+    <h3 id="news-title">Últimas Noticias</h3>
+    <div id="news-list" class="noticias-globales"></div>
+</div>
+
+<div id="grafico" style="margin-top: 20px;">
+    <canvas id="graficaCanvas" width="400" height="200"></canvas>
+</div>
+
+<script>
+const paises = {
+    america: {
+        pais1: { nombre: "Argentina", participacion: "Detalles sobre la participación de comercio con Argentina", requisitos: ["Licencia de importación", "Certificado de origen", "Documentación aduanera"] },
+        pais2: { nombre: "Brasil", participacion: "Detalles sobre la participación de comercio con Brasil", requisitos: ["Registro de empresa", "Cumplimiento de normativas locales", "Permiso de exportación"] },
+        pais3: { nombre: "Chile", participacion: "Detalles sobre la participación de comercio con Chile", requisitos: ["Acuerdo de comercio", "Inscripción en el registro de exportadores", "Certificación de calidad"] }
+    },
+    europa: {
+        pais4: { nombre: "Alemania", participacion: "Detalles sobre la participación de comercio con Alemania", requisitos: ["Licencia de importación", "Certificado de origen", "Normativa de calidad"] },
+        pais5: { nombre: "Francia", participacion: "Detalles sobre la participación de comercio con Francia", requisitos: ["Registro de empresa", "Cumplimiento de normativas locales", "Permiso de exportación"] },
+        pais6: { nombre: "España", participacion: "Detalles sobre la participación de comercio con España", requisitos: ["Acuerdo de comercio", "Inscripción en el registro de exportadores", "Certificación de calidad"] }
+    },
+    asia: {
+        pais7: { nombre: "China", participacion: "Detalles sobre la participación de comercio con China", requisitos: ["Licencia de importación", "Certificado de origen", "Documentación aduanera"] },
+        pais8: { nombre: "India", participacion: "Detalles sobre la participación de comercio con India", requisitos: ["Registro de empresa", "Cumplimiento de normativas locales", "Permiso de exportación"] },
+        pais9: { nombre: "Japón", participacion: "Detalles sobre la participación de comercio con Japón", requisitos: ["Acuerdo de comercio", "Inscripción en el registro de exportadores", "Certificación de calidad"] }
+    }
+};
+
+// Noticias simuladas por indicador
+const noticiasPorIndicador = {
+    petroleo: {
+        titulo: "Aumento en el precio del Petróleo WTI",
+        descripcion: "El precio del petróleo WTI ha aumentado un 5% en la última semana debido a la reducción de la producción.",
+        imagen: "img/petroleo.jpg"
+    },
+    cafe: {
+        titulo: "El café alcanza precios récord",
+        descripcion: "Los precios del café han alcanzado niveles históricos debido a la baja producción en Brasil.",
+        imagen: "img/cafe.jpg"
+    },
+    oro: {
+        titulo: "El oro se mantiene fuerte en el mercado",
+        descripcion: "El oro ha visto un aumento en su valor debido a la incertidumbre económica global.",
+        imagen: "img/oro.jpg"
+    },
+    tasa_usura: {
+        titulo: "Aumento de la tasa de usura",
+        descripcion: "La tasa de usura ha aumentado un 1.5% en el último trimestre, afectando a los préstamos personales.",
+        imagen: "img/tasa_usura.jpg"
+    },
+    dtf: {
+        titulo: "DTF en aumento",
+        descripcion: "La DTF ha subido un 0.5% en el último mes, lo que indica un aumento en las tasas de interés.",
+        imagen: "img/dtf.jpg"
+    },
+    cobre: {
+        titulo: "El cobre se recupera",
+        descripcion: "El precio del cobre ha aumentado un 3% debido a la demanda en el sector de la construcción.",
+        imagen: "img/cobre.jpg"
+    },
+    plata: {
+        titulo: "La plata sigue en alza",
+        descripcion: "La plata ha visto un aumento en su valor debido a la creciente demanda industrial.",
+        imagen: "img/plata.jpg"
+    },
+    maiz: {
+        titulo: "El maíz alcanza precios altos",
+        descripcion: "Los precios del maíz han subido debido a la escasez de suministros.",
+        imagen: "img/maiz.jpg"
+    },
+    trigo: {
+        titulo: "El trigo se mantiene estable",
+        descripcion: "El precio del trigo se ha mantenido estable a pesar de la volatilidad del mercado.",
+        imagen: "img/trigo.jpg"
+    },
+    soja: {
+        titulo: "La soja se recupera en el mercado",
+        descripcion: "La soja ha visto un aumento en su valor debido a la demanda en el mercado asiático.",
+        imagen: "img/soja.jpg"
+    }
+};
+
+const traducciones = {
+    es: {
+        region: "Selecciona una región",
+        pais: "Selecciona un país",
+        info: "Información de Comercio",
+        participacion: "Participación de Comercio",
+        requisitos: "Requisitos para Comercio",
+        noticias: "Últimas Noticias"
+    },
+    en: {
+        region: "Select a region",
+        pais: "Select a country",
+        info: "Trade Information",
+        participacion: "Trade Participation",
+        requisitos: "Trade Requirements",
+        noticias: "Latest News"
+    },
+    fr: {
+        region: "Sélectionnez une région",
+        pais: "Sélectionnez un pays",
+        info: "Informations commerciales",
+        participacion: "Participation au commerce",
+        requisitos: "Exigences commerciales",
+        noticias: "Dernières nouvelles"
+    }
+};
+
+function cambiarIdioma(idioma) {
+    const selectedLabels = traducciones[idioma];
+
+    // Actualizar textos de la interfaz
+    document.querySelector('#region-selector option:first-child').textContent = selectedLabels.region;
+    document.querySelector('#pais-selector option:first-child').textContent = selectedLabels.pais;
+    document.querySelector('#info-pais h2').textContent = selectedLabels.info;
+    document.querySelector('#news-title').textContent = selectedLabels.noticias;
+}
+
+function actualizarNoticias(idioma) {
+    const newsList = document.getElementById('news-list');
+    newsList.innerHTML = ''; // Limpiar noticias
+
+    // Filtrar y mostrar noticias en el idioma seleccionado
+    for (const indicador in noticiasPorIndicador) {
+        const noticia = noticiasPorIndicador[indicador];
+        const div = document.createElement('div');
+        div.classList.add('noticia');
+        div.innerHTML = `
+            <h2>${noticia.titulo}</h2>
+            <p>${noticia.descripcion}</p>
+            <img src="${noticia.imagen}" alt="${noticia.titulo}">
+        `;
+        newsList.appendChild(div);
+    }
+}
+
+function filtrarNoticiasPorCategoria(categoria) {
+    const newsList = document.getElementById('news-list');
+    newsList.innerHTML = ''; // Limpiar noticias
+
+    for (const indicador in noticiasPorIndicador) {
+        const noticia = noticiasPorIndicador[indicador];
+        if (categoria === "" || noticia.categoria === categoria) {
+            const div = document.createElement('div');
+            div.classList.add('noticia');
+            div.innerHTML = `
+                <h2>${noticia.titulo}</h2>
+                <p>${noticia.descripcion}</p>
+                <img src="${noticia.imagen}" alt="${noticia.titulo}">
+            `;
+            newsList.appendChild(div);
+        }
+    }
+}
+
+function mostrarPaisSelector(region) {
+    const paisSelector = document.getElementById('pais-selector');
+    const paisContainer = document.getElementById('pais-container');
+    
+    // Limpiar el menú de selección de países
+    paisSelector.innerHTML = '<option value="">Selecciona un país</option>';
+    
+    if (region) {
+        const regionPaises = paises[region];
+        for (const key in regionPaises) {
+            const pais = regionPaises[key];
+            const option = document.createElement('option');
+            option.value = pais.nombre; // Usar el nombre del país
+            option.textContent = pais.nombre;
+            paisSelector.appendChild(option);
+        }
+        paisContainer.style.display = 'block'; // Mostrar el selector de países
+    } else {
+        paisContainer.style.display = 'none'; // Ocultar el selector de países
+    }
+    
+    // Limpiar la información del país
+    document.getElementById('info-pais').innerHTML = '';
+    document.getElementById('news-list').innerHTML = ''; // Limpiar noticias al cambiar región
+}
+
+function buscarPais() {
+    const input = document.getElementById('search-country').value.toLowerCase();
+    let encontrado = false;
+
+    // Iterar sobre todas las regiones
+    for (const region in paises) {
+        const paisesEnRegion = paises[region];
+
+        for (const key in paisesEnRegion) {
+            const pais = paisesEnRegion[key].nombre.toLowerCase();
+            if (pais === input) {
+                // Si el país coincide, mostrar la información del país
+                mostrarInfoPais(paisesEnRegion[key].nombre);
+                encontrado = true;
+                break; // Salir del bucle si se encuentra el país
+            }
+        }
+
+        if (encontrado) {
+            break; // Salir del bucle de regiones si se encontró el país
+        }
+    }
+
+    if (!encontrado) {
+        alert("País no encontrado. Por favor, intenta de nuevo."); // Mensaje si no se encuentra el país
+    }
+}
+
+function resetSearch() {
+    document.getElementById('search-country').value = '';
+    document.getElementById('pais-selector').innerHTML = '<option value="">Selecciona un país</option>';
+    document.getElementById('info-pais').innerHTML = '';
+    document.getElementById('news-list').innerHTML = ''; // Limpiar noticias
+}
+
+function mostrarInfoPais(pais) {
+    const region = document.getElementById('region-selector').value;
+    const selectedInfo = paises[region][Object.keys(paises[region]).find(key => paises[region][key].nombre === pais)];
+    
+    if (pais === "Argentina") {
+        window.location.href = "argentina.html"; // Redirige a la página de Argentina
+    } else if (selectedInfo) {
+        const infoDiv = document.getElementById('info-pais');
+        infoDiv.innerHTML = `
+            <h2>Información de Comercio: ${selectedInfo.nombre}</h2>
+            <button class="button" onclick="mostrarParticipacion('${selectedInfo.participacion}')">Participación de Comercio</button>
+            <button class="button" onclick="mostrarRequisitos(${JSON.stringify(selectedInfo.requisitos)})">Requisitos para Comercio</button>
+        `;
+        mostrarGraficoComercio(selectedInfo.nombre);
+        mostrarNoticiasPorPais(selectedInfo.nombre); // Llamar a la función para mostrar noticias
+    } else {
+        document.getElementById('info-pais').innerHTML = '';
+        document.getElementById('news-list').innerHTML = ''; // Limpiar noticias si no hay país seleccionado
+    }
+}
+function mostrarInfoPais(pais) {
+    const region = document.getElementById('region-selector').value;
+    const selectedInfo = paises[region][Object.keys(paises[region]).find(key => paises[region][key].nombre === pais)];
+    
+    if (pais === "Alemania") {
+        window.location.href = "alemania.html"; // Redirige a la página de Argentina
+    } else if (selectedInfo) {
+        const infoDiv = document.getElementById('info-pais');
+        infoDiv.innerHTML = `
+            <h2>Información de Comercio: ${selectedInfo.nombre}</h2>
+            <button class="button" onclick="mostrarParticipacion('${selectedInfo.participacion}')">Participación de Comercio</button>
+            <button class="button" onclick="mostrarRequisitos(${JSON.stringify(selectedInfo.requisitos)})">Requisitos para Comercio</button>
+        `;
+        mostrarGraficoComercio(selectedInfo.nombre);
+        mostrarNoticiasPorPais(selectedInfo.nombre); // Llamar a la función para mostrar noticias
+    } else {
+        document.getElementById('info-pais').innerHTML = '';
+        document.getElementById('news-list').innerHTML = ''; // Limpiar noticias si no hay país seleccionado
+    }
+}
+
+function mostrarParticipacion(participacion) {
+    alert(participacion);
+}
+
+function mostrarRequisitos(requisitos) {
+    alert("Requisitos para Comercio:\n" + requisitos.join('\n'));
+}
+
+function mostrarGraficoComercio(pais) {
+    const ctx = document.getElementById('graficaCanvas').getContext('2d');
+    const chartData = {
+        labels: ['Importaciones', 'Exportaciones'],
+        datasets: [{
+            label: `Datos de Comercio de ${pais}`,
+            data: [Math.random() * 1000, Math.random() * 1000], // Simulación de datos
+            backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+            borderWidth: 1
+        }]
+    };
+
+    if (window.tradeChart) {
+        window.tradeChart.destroy();
+    }
+    window.tradeChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function filtrarPaises() {
+    const input = document.getElementById('search-country').value.toLowerCase();
+    const paisSelector = document.getElementById('pais-selector');
+    
+    for (let i = 1; i < paisSelector.options.length; i++) {
+        const option = paisSelector.options[i];
+        option.style.display = option.text.toLowerCase().includes(input) ? '' : 'none';
+    }
+}
+
+function toggleContent() {
+    const newsContainer = document.getElementById('news-container');
+    newsContainer.style.display = newsContainer.style.display === 'none' ? 'block' : 'none';
+}
+
+// Load dark mode preference from local storage
+if (localStorage.getItem('darkMode') === 'true') {
+    toggleDarkMode();
+}
+
+// Comment functionality
+function agregarComentario() {
+    const commentInput = document.getElementById('comment-input');
+    const commentText = commentInput.value.trim();
+    if (commentText) {
+        const commentsList = document.getElementById('comments-list');
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment');
+        commentDiv.textContent = commentText;
+        commentsList.appendChild(commentDiv);
+        commentInput.value = ''; // Clear input after adding comment
+    } else {
+        alert("Por favor, escribe un comentario antes de enviar.");
+    }
+}
+
+// Function to view graphs and news
+function mostrarInfoIndicador(indicador) {
+    const graficoDiv = document.getElementById('grafico');
+    
+    // Limpiar contenido anterior
+    graficoDiv.innerHTML = '';
+
+    // Cargar el gráfico correspondiente y la noticia
+    const noticia = noticiasPorIndicador[indicador];
+    if (noticia) {
+        graficoDiv.innerHTML = `
+            <h2>${noticia.titulo}</h2>
+            <p>${noticia.descripcion}</p>
+            <img src="${noticia.imagen}" alt="${noticia.titulo}">
+        `;
+        dibujarGrafica(indicador); // Llamar a la función para dibujar la gráfica
+    } else {
+        graficoDiv.innerHTML = '<h2>Seleccione un indicador para ver el gráfico y la noticia.</h2>';
+    }
+}
+
+// Function to draw the graph
+function dibujarGrafica(indicador) {
+    const ctx = document.getElementById('graficaCanvas').getContext('2d');
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clear the canvas
+
+    // Example data for the graph (you can replace this with actual data)
+    const data = {
+        labels: ['Importaciones', 'Exportaciones'],
+        datasets: [{
+            label: `Datos de ${indicador}`,
+            data: [Math.random() * 1000, Math.random() * 1000], // Simulated data
+            backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+            borderWidth: 1
+        }]
+    };
+
+    if (window.indicadorChart) {
+        window.indicadorChart.destroy();
+    }
+    window.indicadorChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Inicializar noticias en español
+actualizarNoticias('es');
+
+</script>
+
+</body>
+</html>

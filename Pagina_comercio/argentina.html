@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Argentina - AI-COMEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #343a40;
+    line-height: 1.6;
+}
+.menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            flex: 1 1 200px;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+header {
+    background-color: #003366;
+    padding: 15px 5%;
+    text-align: center;
+    border-bottom: 5px solid #0056b3;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: white;
+}
+
+header p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+    color: white;
+}
+
+.barra {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    background: linear-gradient(90deg, #003366, #0056b3);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    align-items: center;
+}
+
+.indicadores {
+    display: flex;
+    animation: deslizar 15s linear infinite;
+    overflow: hidden;
+}
+
+@keyframes deslizar {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.indicador {
+    margin: 0 10px;
+    padding: 8px 12px;
+    background: #495057;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.indicador:hover {
+    background: #007bff;
+    transform: scale(1.05);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+
+h2 {
+    color: #007bff;
+    margin-top: 20px; /* Reducción del margen superior */
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+.mapa {
+    text-align: center;
+    margin-top: 20px;
+}
+
+iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.requisitos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.requisitos {
+    flex: 1 1 calc(48% - 20px);
+    box-sizing: border-box;
+    background: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.requisitos img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.participacion {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.noticias {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e9ecef;
+}
+
+.noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.noticia {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.noticia:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.noticia h4 {
+    margin: 15px;
+    color: #007bff;
+}
+
+.noticia img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    margin-top: 40px;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    margin: 10px;
+}
+
+.hidden-menu {
+    display: none;
+    background: #007bff;
+    padding: 15px;
+    border-radius: 5px;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.hidden-menu.active {
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    iframe {
+        height: 200px;
+    }
+
+    .noticias-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .requisitos {
+        flex: 1 1 100%;
+    }
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre botones */
+    margin-bottom: 20px; /* Espacio debajo del menú */
+}
+
+.menu h2 {
+    margin: 0; /* Eliminar márgenes para los títulos */
+}
+
+.btn {
+    flex: 1 0 auto; /* Permitir que los botones se ajusten a su contenido */
+    padding: 10px 15px; /* Espaciado interno para los botones */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre los botones */
+}
+
+.filter-container {
+    margin: 20px 0; /* Espaciado para el contenedor de filtro */
+}
+    </style>
+</head>
+<body>
+<header>
+    <h1>Información de Comercio: Argentina</h1> 
+    <div class="barra">
+        <div class="indicadores">
+            <div class="indicador" onclick="mostrarInfoIndicador('petroleo')">Petróleo WTI: US$ 71.93 <span class="positivo">+0.77</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('cafe')">Café: US$ 4.20 <span class="negativo">-0.01</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('oro')">Oro: $3,678,049 <span class="positivo">+500.53</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('tasa_usura')">Tasa de Usura: 26.30% <span class="positivo">+1.4%</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('dtf')">DTF: 9.27% <span class="positivo">+0.02%</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('cobre')">Cobre: US$ 4.50 <span class="positivo">+0.10</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('plata')">Plata: US$ 25.00 <span class="positivo">+0.05</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('maiz')">Maíz: US$ 6.00 <span class="positivo">+0.02</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('trigo')">Trigo: US$ 5.50 <span class="positivo">+0.01</span></div>
+            <div class="indicador" onclick="mostrarInfoIndicador('soja')">Soja: US$ 14.00 <span class="positivo">+0.03</span></div>
+        </div>
+    </div>
+    <a href="index.html" class="btn">Volver a Seleccionar País</a>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+</header>
+
+<div class="hidden-menu" id="hiddenMenu">
+    <div class="container">
+        <div class="item datalist-container">
+            <input type="text" id="search-country" placeholder="Buscar país..." onkeyup="filtrarPaises()">
+            <button onclick="buscarPais()">Buscar</button>
+        </div>
+        
+        <div class="item">
+            <select id="region-selector" onchange="mostrarPaisSelector(this.value)">
+                <option value="">Selecciona una región</option>
+                <option value="america">América</option>
+                <option value="europa">Europa</option>
+                <option value="asia">Asia</option>
+            </select>
+        </div>
+        
+        <div class="item" id="pais-container" style="display: none;">
+            <select id="pais-selector" onchange="mostrarInfoPais(this.value)">
+                <option value="">Selecciona un país</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="filter-container">
+        <h3>Filtrar Noticias</h3>
+        <select id="category-selector" onchange="filtrarNoticiasPorCategoria(this.value)">
+            <option value="">Todas las categorías</option>
+            <option value="economia">Economía</option>
+            <option value="politica">Política</option>
+            <option value="tecnologia">Tecnología</option>
+        </select>
+    </div>
+
+    <div id="news-container">
+        <h3 id="news-title">Últimas Noticias</h3>
+        <div id="news-list" class="noticias-globales"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="menu">
+        <button onclick="mostrarSeccion('ventajas')" class="btn">Ver Ventajas</button>
+        <button onclick="mostrarSeccion('mapa')" class="btn">Ver Mapa</button>
+        <button onclick="mostrarSeccion('datos-economicos')" class="btn">Ver Datos Económicos</button>
+        <button onclick="mostrarSeccion('requisitos')" class="btn">Ver Requisitos</button>
+        <button onclick="mostrarSeccion('participacion')" class="btn">Ver Participación</button>
+    </div>
+
+    <div id="ventajas" class="seccion" style="display:none;">
+        <ul>
+            <li><strong>Tratados comerciales:</strong> Acuerdos con MERCOSUR y la UE.</li>
+            <li><strong>Exportaciones destacadas:</strong> Agricultura, manufactura y tecnología.</li>
+            <li><strong>Incentivos fiscales:</strong> Beneficios para inversionistas extranjeros.</li>
+        </ul>
+    </div>
+    
+    <div id="mapa" class="seccion" style="display:none;">
+        <div class="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d330320.6740301493!2d-58.50104803266861!3d-34.60138227805237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccb1c93f35f29%3A0xf4e8e6e00d0d3b95!2sArgentina!5e0!3m2!1ses!2sus!4v1616164612312!5m2!1ses!2sus" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="datos-economicos" class="seccion" style="display:none;">
+        <p>Argentina es uno de los países más grandes de América del Sur, con una economía diversificada que incluye la agricultura, la industria y los servicios. En 2025, se espera un crecimiento del PIB del 3.5% gracias a las reformas económicas y al aumento de las exportaciones. <a href="https://www.argentina.gob.ar/economia" target="_blank">Más información sobre la economía de Argentina</a>.</p>
+    </div>
+
+    <div id="requisitos" class="seccion" style="display:none;">
+        <div class="requisitos-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <div class="requisitos" style="flex: 1; min-width: 250px;">
+                <h3>Licencia de Importación</h3>
+                <p>Para importar productos a Argentina, es obligatorio contar con una licencia de importación que puede ser automática o no automática, dependiendo del tipo de mercancía.</p>
+                <img src="img/licencia.jpg" alt="Licencia de Importación">
+                <p><a href="https://www.argentina.gob.ar/servicio/solicitar-licencias-de-importacion" target="_blank">Solicita tu licencia aquí</a></p>
+            </div>
+
+            <div class="requisitos" style="flex: 1; min-width: 250px;">
+                <h3>Certificado de Origen</h3>
+                <p>Este documento acredita el país de fabricación de los productos importados y es esencial para acceder a beneficios arancelarios en acuerdos comerciales.</p>
+                <img src="img/cert.jpg" alt="Certificado de Origen">
+                <p><a href="https://www.argentina.gob.ar/servicio/tramitar-un-certificado-de-origen" target="_blank">Más información sobre el certificado</a></p>
+            </div>
+
+            <div class="requisitos" style="flex: 1; min-width: 250px;">
+                <h3>Documentación Aduanera</h3>
+                <p>Todos los envíos internacionales deben cumplir con los requisitos aduaneros, incluyendo la Declaración Aduanera y otros documentos exigidos por la AFIP.</p>
+                <img src="https://via.placeholder.com/600x300" alt="Documentación Aduanera">
+                <p><a href="https://www.afip.gob.ar" target="_blank">Requisitos aduaneros detallados</a></p>
+            </div>
+
+            <div class="requisitos" style="flex: 1; min-width: 250px;">
+                <h3>Registro de Empresa en Argentina</h3>
+                <p>Las empresas extranjeras que deseen operar en Argentina deben registrarse ante la Inspección General de Justicia (IGJ) y cumplir con las regulaciones comerciales.</p>
+                <img src="https://via.placeholder.com/600x300" alt="Registro de Empresa">
+                <p><a href="https://www.argentina.gob.ar/produccion" target="_blank">Cómo registrar una empresa</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="participacion" class="seccion" style="display:none;">
+        <p>Participa en nuestras iniciativas y eventos para fortalecer el comercio internacional y fomentar las relaciones comerciales. Mantente informado sobre oportunidades y programas de participación en el comercio.</p>
+        <img src="img/argentina4.jpg" alt="Participación en Comercio" style="width: 100%; height: auto; border-radius: 5px;">
+    </div>
+</div>
+<h2>Noticias</h2>
+<div class="noticias">
+    <h3>Titulares Recientes</h3>
+    <div class="noticias-grid">
+        <div class="noticia">
+            <h4>Reforma Fiscal en Argentina</h4>
+            <p>Nuevas medidas para fomentar la inversión extranjera.</p>
+            <img src="img/argentina.jpg" alt="Noticia 1">
+        </div>
+        <div class="noticia">
+            <h4>Acuerdo Comercial con Europa</h4>
+            <p>Se espera que genere nuevas oportunidades de negocio.</p>
+            <img src="img/argentina2.jpg" alt="Noticia 2">
+        </div>
+        <div class="noticia">
+            <h4>Crecimiento del PIB</h4>
+            <p>Proyecciones positivas para el 2025 a pesar de la inflación.</p>
+            <img src="img/argentina3.jpg" alt="Noticia 3">
+        </div>
+        <div class="noticia">
+            <h4>Iniciativas de Sostenibilidad</h4>
+            <p>Argentina avanza en políticas de comercio sostenible.</p>
+            <img src="img/bitcoin.jpg" alt="Noticia 4">
+        </div>
+        <div class="noticia">
+            <h4>Innovación Tecnológica</h4>
+            <p>Nuevas startups emergen en el sector tecnológico argentino.</p>
+            <img src="https://via.placeholder.com/300x200" alt="Noticia 5">
+        </div>
+        <div class="noticia">
+            <h4>Exportaciones Agrícolas</h4>
+            <p>Incremento en las exportaciones de soja y maíz.</p>
+            <img src="https://via.placeholder.com/300x200" alt="Noticia 6">
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <p>&copy; 2025 AI-COMEX. Todos los derechos reservados.</p>
+</footer>
+<script>
+    function mostrarSeccion(id) {
+        const secciones = document.querySelectorAll('.seccion');
+        secciones.forEach(seccion => {
+            seccion.style.display = 'none';
+        });
+        document.getElementById(id).style.display = 'block';
+    }
+
+    function toggleMenu() {
+        const menu = document.getElementById('hiddenMenu');
+        menu.classList.toggle('active');
+    }
+
+    function mostrarInfoIndicador(indicador) {
+        let mensaje = "";
+        switch (indicador) {
+            case 'petroleo':
+                mensaje = "Petróleo WTI: US$ 71.93. Aumento en la producción y demanda.";
+                break;
+            case 'cafe':
+                mensaje = "Café: US$ 4.20. Precios estables, pero con fluctuaciones.";
+                break;
+            case 'oro':
+                mensaje = "Oro: $3,678,049. Incremento en la inversión en metales preciosos.";
+                break;
+            case 'tasa_usura':
+                mensaje = "Tasa de Usura: 26.30%. Se ha incrementado debido a la inflación.";
+                break;
+            case 'dtf':
+                mensaje = "DTF: 9.27%. Refleja el costo del dinero a corto plazo.";
+                break;
+            case 'cobre':
+                mensaje = "Cobre: US$ 4.50. Estable con tendencia al alza.";
+                break;
+            case 'plata':
+                mensaje = "Plata: US$ 25.00. Aumento moderado en la demanda industrial.";
+                break;
+            case 'maiz':
+                mensaje = "Maíz: US$ 6.00. Incremento en las exportaciones agrícolas.";
+                break;
+            case 'trigo':
+                mensaje = "Trigo: US$ 5.50. Mercado estable con buenas cosechas.";
+                break;
+            case 'soja':
+                mensaje = "Soja: US$ 14.00. Alta demanda en mercados internacionales.";
+                break;
+            default:
+                mensaje = "Información no disponible.";
+        }
+        alert(mensaje);
+    }
+
+    function filtrarPaises() {
+        const input = document.getElementById('search-country').value.toLowerCase();
+        const paises = document.querySelectorAll('#pais-selector option');
+        paises.forEach(pais => {
+            const textoPais = pais.textContent.toLowerCase();
+            pais.style.display = textoPais.includes(input) ? 'block' : 'none';
+        });
+    }
+
+    function buscarPais() {
+        const paisSelector = document.getElementById('pais-selector');
+        const paisSeleccionado = paisSelector.options[paisSelector.selectedIndex].value;
+        mostrarInfoPais(paisSeleccionado);
+    }
+
+    function mostrarPaisSelector(region) {
+        const paisContainer = document.getElementById('pais-container');
+        paisContainer.style.display = region ? 'block' : 'none';
+        // Aquí podrías cargar los países según la región seleccionada.
+    }
+
+    function mostrarInfoPais(pais) {
+        // Lógica para mostrar información del país seleccionado
+        alert("Mostrando información para: " + pais);
+    }
+
+    function filtrarNoticiasPorCategoria(categoria) {
+        const noticias = document.querySelectorAll('.noticia');
+        noticias.forEach(noticia => {
+            const noticiaCategoria = noticia.getAttribute('data-categoria');
+            noticia.style.display = categoria === '' || noticiaCategoria === categoria ? 'block' : 'none';
+        });
+    }
+</script>
