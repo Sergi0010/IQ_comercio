@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francia - AI-COMEX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #a0c4ff, #e0e0e0);
+            color: #343a40;
+            line-height: 1.6;
+            transition: background 0.5s ease;
+        }
+
+        header {
+            background-color: #003366;
+            padding: 15px 5%;
+            text-align: center;
+            border-bottom: 5px solid #0056b3;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: white;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            margin: 5px 0;
+            color: white;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .btn {
+            flex: 1 1 200px;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 20px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        .requisitos-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .requisitos {
+            flex: 1 1 calc(48% - 20px);
+            box-sizing: border-box;
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .requisitos:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .requisitos img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .noticias {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9ecef;
+        }
+
+        .noticias-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .noticia {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .noticia:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .noticia h4 {
+            margin: 15px;
+            color: #007bff;
+        }
+
+        .noticia img {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .prediccion-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .prediccion-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .noticias-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .requisitos {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Información de Comercio: Francia</h1> 
+    <a href="index.html" class="btn">Volver a Seleccionar País</a>
+</header>
+
+<div class="container">
+    <div class="menu">
+        <button onclick="mostrarSeccion('aranceles')" class="btn">Aranceles</button>
+        <button onclick="mostrarSeccion('mapa')" class="btn">Ver Mapa</button>
+        <button onclick="mostrarSeccion('participantes')" class="btn">Participantes de Comercio Exterior</button>
+        <button onclick="mostrarSeccion('requisitos')" class="btn">Ver Requisitos</button>
+        <button onclick="mostrarSeccion('ia-prediccion')" class="btn">IA-Predicción</button>
+    </div>
+
+    <div id="aranceles" class="seccion">
+        <h2>Aranceles de Comercio Exterior</h2>
+        <p>Los aranceles vinculados a la certificación de exportaciones en Francia están especificados en las siguientes resoluciones:</p>
+        <ul>
+            <li><a href="#">Reglamento de la Unión Europea sobre aranceles</a></li>
+            <li><a href="#">Ley de Comercio Exterior de Francia</a></li>
+            <li><a href="#">Acuerdos de Libre Comercio de la UE</a></li>
+        </ul>
+        <h3>Aranceles en Francia</h3>
+        <p>Francia aplica distintos tipos de aranceles según el origen del producto y los acuerdos comerciales. A continuación, se detallan algunos aspectos importantes:</p>
+        <ul>
+            <li><strong>Arancel Externo Común (AEC):</strong> Rango de 0% a 20% dependiendo del tipo de mercancía.</li>
+            <li><strong>IVA e Impuestos Internos:</strong> Algunos productos tienen un IVA adicional que puede variar entre el 5.5% y el 20%.</li>
+            <li><strong>Acuerdos Comerciales:</strong> Francia tiene tratados con varios países que pueden reducir o eliminar aranceles.</li>
+            <li><strong>Regímenes de Importación:</strong> Existen licencias automáticas y no automáticas según el tipo de producto.</li>
+            <li><strong>Excepciones:</strong> Algunos productos pueden estar exentos de aranceles bajo ciertas condiciones.</li>
+        </ul>
+        <h2>Comercio Exterior - Datos Clave</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <th style="background-color: #007bff; color: white; padding: 10px; border: 1px solid #ddd;">Clientes Principales (% de exportaciones) - 2023</th>
+                <th style="background-color: #007bff; color: white; padding: 10px; border: 1px solid #ddd;">Proveedores Principales (% de importaciones) - 2023</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Alemania - 15.0%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Alemania - 20.5%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Reino Unido - 10.5%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">China - 18.0%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Italia - 8.0%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Italia - 10.0%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">España - 7.5%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Estados Unidos - 9.5%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Otros - 58.0%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Otros - 41.0%</td>
+            </tr>
+        </table>
+    
+        <h2>Productos Principales</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <th style="background-color: #007bff; color: white; padding: 10px; border: 1px solid #ddd;">Exportaciones - 50.0 miles de mills. USD (2023)</th>
+                <th style="background-color: #007bff; color: white; padding: 10px; border: 1px solid #ddd;">Importaciones - 55.0 miles de mills. USD (2023)</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Aeronaves - 12.0%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Maquinaria - 8.5%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Vinos - 10.0%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Productos químicos - 7.0%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Productos farmacéuticos - 8.0%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Electrónica - 6.5%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Maquinaria - 7.5%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Vehículos - 5.0%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Otros - 43.0%</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">Otros - 73.0%</td>
+            </tr>
+        </table>
+    
+        <p class="source">Fuente: Comtrade, últimos datos disponibles</p>
+        <p><a href="https://www.douane.gouv.fr" target="_blank">Consulta más información sobre aranceles aquí</a>.</p>
+    </div>
+
+    <div id="mapa" class="seccion" style="display:none;">
+        <h3>Ubicación y Zonas Económicas</h3>
+        <p>Francia cuenta con diversas zonas estratégicas para la importación y exportación.</p>
+        <ul>
+            <li><a href="https://www.portdelamediterranee.com/" target="_blank">Puerto de Marsella</a></li>
+            <li><a href="https://www.aeroport.fr/" target="_blank">Aeropuerto Charles de Gaulle</a></li>
+            <li><a href="https://www.zonesfranches.fr/" target="_blank">Zonas Francas</a></li>
+        </ul>
+        <iframe src="https://www.google.com/maps/embed?..." allowfullscreen></iframe>
+    </div>
+
+    <div id="participantes" class="seccion">
+        <h2>Participantes en Comercio Exterior</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <th style="background-color: #007bff; color: white; padding: 10px; border: 1px solid #ddd;">Categoría</th>
+                <th style="background-color: #007bff; color: white; padding: 10px; border: 1px solid #ddd;">Información</th>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Zonas Francas y Economía Especial de Exportación</td>
+            </tr>
+            <tr>
+                <td>Contactos</td>
+                <td>Lista de contactos de empresas dentro de Zonas Francas, facilitando la conexión entre importadores y exportadores. Ejemplos incluyen empresas de logística y distribución.</td>
+            </tr>
+            <tr>
+                <td>Competitividad y Desempeño</td>
+                <td>Evaluaciones sobre la competitividad de las Zonas Francas, incluyendo análisis de costos, beneficios fiscales y tiempos de despacho.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Servicios Legales</td>
+            </tr>
+            <tr>
+                <td>Contactos</td>
+                <td>Directorio de asesores legales especializados en comercio exterior, que ofrecen asesoría en regulaciones y normativas, así como en la redacción de contratos internacionales.</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Ranking de bufetes especializados en comercio internacional, evaluando su experiencia, casos de éxito y satisfacción del cliente.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Agentes de Carga</td>
+            </tr>
+            <tr>
+                <td>Costos</td>
+                <td>Análisis de tarifas de transporte de carga, incluyendo comparativas entre diferentes modalidades de transporte (aéreo, marítimo y terrestre).</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Comparativa de servicios de carga, destacando la eficiencia, tiempos de entrega y satisfacción del cliente.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Agentes de Aduana</td>
+            </tr>
+            <tr>
+                <td>Costos</td>
+                <td>Costos asociados a los servicios de agentes de aduana, incluyendo tarifas por servicios de despacho y asesoría.</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Evaluación del desempeño de los agentes de aduana en términos de rapidez y efectividad en el despacho de mercancías.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Transportistas</td>
+            </tr>
+            <tr>
+                <td>Costos</td>
+                <td>Costos de transporte terrestre, aéreo y marítimo, incluyendo tarifas por kilómetro y costos de combustible.</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Evaluación de la puntualidad y confiabilidad de los transportistas en la entrega de mercancías.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Puertos</td>
+            </tr>
+            <tr>
+                <td>Costos</td>
+                <td>Costos de operación en puertos, incluyendo tarifas de carga y descarga, y costos de almacenamiento.</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Evaluación de la eficiencia operativa de los puertos, tiempos de espera y capacidad de manejo de carga.</td>
+            </tr>
+            <tr>
+                <td>Operador Portuario</td>
+                <td>Información sobre los principales operadores portuarios en Francia y sus capacidades.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Aeropuertos</td>
+            </tr>
+            <tr>
+                <td>Costos</td>
+                <td>Costos de operación en aeropuertos, incluyendo tarifas de carga y descarga, y costos de servicios aeroportuarios.</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Evaluación de la eficiencia operativa de los aeropuertos, tiempos de espera y capacidad de manejo de carga aérea.</td>
+            </tr>
+            <tr>
+                <td>Operador Aeroportuario</td>
+                <td>Información sobre los principales operadores aeroportuarios en Francia y sus capacidades.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Empresas de Intermediación Financiera</td>
+            </tr>
+            <tr>
+                <td>Contactos</td>
+                <td>Lista de contactos de empresas de intermediación financiera que facilitan el comercio exterior, incluyendo bancos y casas de cambio.</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Evaluación de la eficiencia y confiabilidad de las empresas de intermediación financiera en el manejo de transacciones internacionales.</td>
+            </tr>
+            <tr>
+                <td class="highlight" colspan="2" style="background-color: #e9ecef; font-weight: bold;">Empresas de Seguros</td>
+            </tr>
+            <tr>
+                <td>Contactos</td>
+                <td>Directorio de empresas de seguros que ofrecen pólizas para comercio exterior, incluyendo seguros de carga y responsabilidad civil.</td>
+            </tr>
+            <tr>
+                <td>Desempeño</td>
+                <td>Evaluación de la calidad del servicio y la satisfacción del cliente en las empresas de seguros.</td>
+            </tr>
+        </table>
+    
+        <h4>📊 Gráficas y Estadísticas</h4>
+        <div style="display: flex; justify-content: center; margin: 20px 0;">
+            <div style="margin: 0 10px; text-align: center;">
+                <img src="img/francia_exportaciones.jpg" alt="Gráfica de Exportaciones" style="width: 100%; max-width: 300px; border-radius: 8px;">
+                <p>Gráfica que muestra las tendencias de exportaciones en los últimos años.</p>
+            </div>
+            <div style="margin: 0 10px; text-align: center;">
+                <img src="img/francia_importaciones.jpg" alt="Gráfica de Importaciones" style="width: 100%; max-width: 300px; border-radius: 8px;">
+                <p>Gráfica que muestra las tendencias de importaciones en los últimos años.</p>
+            </div>
+        </div>
+    
+        <h4>🏢 Entidades Reguladoras</h4>
+        <ul>
+            <li><strong>Douane:</strong> Controla impuestos y regulaciones aduaneras, asegurando el cumplimiento de las normativas fiscales.</li>
+            <li><strong>Banco de Francia:</strong> Regula pagos internacionales y acceso a divisas, facilitando el comercio exterior.</li>
+        </ul>
+    
+        <h4>📦 Infraestructura y Logística</h4>
+        <ul>
+            <li><strong>Puertos y Aeropuertos:</strong> Infraestructura clave para el comercio, incluyendo el Puerto de Marsella y el Aeropuerto Charles de Gaulle.</li>
+            <li><strong>Zonas Francas:</strong> Espacios con beneficios fiscales que permiten la importación y exportación sin aranceles.</li>
+            <li><strong>Empresas de Transporte:</strong> Encargadas del movimiento de mercancías, incluyendo empresas de logística y courier.</li>
+        </ul>
+    
+        <h4>💼 Servicios de Apoyo</h4>
+        <ul>
+            <li><strong>Agentes de Aduana:</strong> Facilitan el despacho de importación y exportación, asegurando el cumplimiento de las normativas aduaneras.</li>
+            <li><strong>Seguros y Financiamiento:</strong> Bancos y aseguradoras que apoyan el comercio, ofreciendo productos financieros adaptados a las necesidades del comercio exterior.</li>
+        </ul>
+    </div>
+    
+    <div id="requisitos" class="seccion" style="display:none;">
+        <h2 style="text-align: center; margin-bottom: 20px;">Requisitos de Importación y Exportación</h2>
+        <div class="requisitos-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            <div class="requisitos">
+                <h3 style="text-align: center; color: #007bff;">Licencia de Importación</h3>
+                <p>Para importar productos a Francia, es obligatorio contar con una licencia de importación que puede ser automática o no automática, dependiendo del tipo de mercancía.</p>
+                <img src="img/licencia_francia.jpg" alt="Licencia de Importación" style="width: 100%; border-radius: 8px;">
+                <p style="text-align: center;"><a href="https://www.douane.gouv.fr" target="_blank" style="color: #007bff; text-decoration: underline;">Solicita tu licencia aquí</a></p>
+            </div>
+    
+            <div class="requisitos">
+                <h3 style="text-align: center; color: #007bff;">Certificado de Origen</h3>
+                <p>Este documento acredita el país de fabricación de los productos importados y es esencial para acceder a beneficios arancelarios en acuerdos comerciales.</p>
+                <img src="img/cert_francia.jpg" alt="Certificado de Origen" style="width: 100%; border-radius: 8px;">
+                <p style="text-align: center;"><a href="https://www.douane.gouv.fr" target="_blank" style="color: #007bff; text-decoration: underline;">Más información sobre el certificado</a></p>
+            </div>
+    
+            <div class="requisitos">
+                <h3 style="text-align: center; color: #007bff;">Documentación Aduanera</h3>
+                <p>Todos los envíos internacionales deben cumplir con los requisitos aduaneros, incluyendo la Declaración Aduanera y otros documentos exigidos por la Douane.</p>
+                <img src="https://via.placeholder.com/600x300" alt="Documentación Aduanera" style="width: 100%; border-radius: 8px;">
+                <p style="text-align: center;"><a href="https://www.douane.gouv.fr" target="_blank" style="color: #007bff; text-decoration: underline;">Requisitos aduaneros detallados</a></p>
+            </div>
+    
+            <div class="requisitos">
+                <h3 style="text-align: center; color: #007bff;">Registro de Empresa en Francia</h3>
+                <p>Las empresas extranjeras que deseen operar en Francia deben registrarse ante el Registro Mercantil y cumplir con las regulaciones comerciales.</p>
+                <img src="https://via.placeholder.com/600x300" alt="Registro de Empresa" style="width: 100%; border-radius: 8px;">
+                <p style="text-align: center;"><a href="https://www.infogreffe.fr" target="_blank" style="color: #007bff; text-decoration: underline;">Cómo registrar una empresa</a></p>
+            </div>
+    
+            <div class="requisitos">
+                <h3 style="text-align: center; color: #007bff;">Requisitos Fitosanitarios</h3>
+                <p>Los productos agrícolas y alimentarios deben cumplir con normativas fitosanitarias para prevenir la introducción de plagas y enfermedades. Se requiere un certificado fitosanitario.</p>
+                <img src="https://via.placeholder.com/600x300" alt="Requisitos Fitosanitarios" style="width: 100%; border-radius: 8px;">
+                <p style="text-align: center;"><a href="https://www.anses.fr" target="_blank" style="color: #007bff; text-decoration: underline;">Más información sobre requisitos fitosanitarios</a></p>
+            </div>
+    
+            <div class="requisitos">
+                <h3 style="text-align: center; color: #007bff;">Seguridad y Control de Drogas</h3>
+                <p>Las importaciones deben cumplir con las regulaciones de seguridad y control de drogas, asegurando que no se introduzcan sustancias prohibidas o controladas.</p>
+                <img src="https://via.placeholder.com/600x300" alt="Control de Drogas" style="width: 100%; border-radius: 8px;">
+                <p style="text-align: center;"><a href="https://www.drogues.gouv.fr" target="_blank" style="color: #007bff; text-decoration: underline;">Información sobre control de drogas</a></p>
+            </div>
+    
+            <div class="requisitos">
+                <h3 style="text-align: center; color: #007bff;">Control de Lavado de Activos</h3>
+                <p>Las empresas deben cumplir con las normativas de prevención de lavado de activos, reportando operaciones sospechosas y asegurando la transparencia en las transacciones.</p>
+                <img src="https://via.placeholder.com/600x300" alt="Control de Lavado de Activos" style="width: 100%; border-radius: 8px;">
+                <p style="text-align: center;"><a href="https://www.tracfin.gouv.fr" target="_blank" style="color: #007bff; text-decoration: underline;">Más información sobre control de lavado de activos</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="ia-prediccion" class="seccion" style="padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h3 style="text-align: center; color: #007bff;">📊 Modelos de Predicción con Inteligencia Artificial</h3>
+        <p style="text-align: center;">La IA está transformando el comercio exterior con modelos predictivos avanzados.</p>
+    
+        <h4 style="color: #007bff;">🔍 Predicciones Disponibles</h4>
+        <div class="predicciones-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            <div class="prediccion-card">
+                <h5 style="color: #007bff;">📦 Predicciones de Volúmenes y Montos</h5>
+                <p>Estimación de importaciones y exportaciones futuras basada en análisis de datos históricos y tendencias del mercado.</p>
+                <ul>
+                    <li>Proyecciones trimestrales y anuales.</li>
+                    <li>Identificación de picos estacionales.</li>
+                    <li>Impacto de políticas comerciales en volúmenes.</li>
+                </ul>
+            </div>
+    
+            <div class="prediccion-card">
+                <h5 style="color: #007bff;">🚢 Predicciones de Costos de Fletes</h5>
+                <p>Análisis de precios de transporte marítimo, aéreo y terrestre, considerando variables como demanda y oferta.</p>
+                <ul>
+                    <li>Comparativa de costos entre diferentes modos de transporte.</li>
+                    <li>Estimaciones de costos en función de rutas específicas.</li>
+                    <li>Impacto de fluctuaciones en el precio del combustible.</li>
+                </ul>
+            </div>
+    
+            <div class="prediccion-card">
+                <h5 style="color: #007bff;">💱 Predicciones de Balanza Cambiaria</h5>
+                <p>Predicciones sobre el impacto del tipo de cambio en el comercio, ayudando a anticipar movimientos en el mercado.</p>
+                <ul>
+                    <li>Proyecciones de tipo de cambio a corto y largo plazo.</li>
+                    <li>Impacto de eventos económicos globales.</li>
+                    <li>Recomendaciones para mitigar riesgos cambiarios.</li>
+                </ul>
+            </div>
+        </div>
+    
+        <h4 style="color: #007bff;">📈 Aplicaciones</h4>
+        <p>Los modelos de IA permiten:</p>
+        <ul>
+            <li>Optimizar estrategias de importación y exportación.</li>
+            <li>Reducir costos logísticos y financieros.</li>
+            <li>Detectar tendencias y oportunidades de mercado.</li>
+        </ul>
+    
+        <p style="text-align: center;"><a href="https://www.argentina.gob.ar/produccion/comercio-exterior" target="_blank" style="color: #007bff; text-decoration: underline;">Descubre más sobre IA y Comercio Exterior</a>.</p>
+    </div>
+
+    <h2>Noticias</h2>
+    <div class="noticias">
+        <h3>Titulares Recientes</h3>
+        <div class="noticias-grid">
+            <div class="noticia">
+                <h4>Reforma Fiscal en Francia</h4>
+                <p>Nuevas medidas para fomentar la inversión extranjera.</p>
+                <img src="img/francia1.jpg" alt="Noticia 1">
+            </div>
+            <div class="noticia">
+                <h4>Acuerdo Comercial con la UE</h4>
+                <p>Se espera que genere nuevas oportunidades de negocio.</p>
+                <img src="img/francia2.jpg" alt="Noticia 2">
+            </div>
+            <div class="noticia">
+                <h4>Crecimiento del PIB</h4>
+                <p>Proyecciones positivas para el 2025 a pesar de la inflación.</p>
+                <img src="img/francia3.jpg" alt="Noticia 3">
+            </div>
+            <div class="noticia">
+                <h4>Iniciativas de Sostenibilidad</h4>
+                <p>Francia avanza en políticas de comercio sostenible.</p>
+                <img src="img/francia4.jpg" alt="Noticia 4">
+            </div>
+            <div class="noticia">
+                <h4>Innovación Tecnológica</h4>
+                <p>Nuevas startups emergen en el sector tecnológico francés.</p>
+                <img src="https://via.placeholder.com/300x200" alt="Noticia 5">
+            </div>
+            <div class="noticia">
+                <h4>Exportaciones Agrícolas</h4>
+                <p>Incremento en las exportaciones de vino y quesos.</p>
+                <img src="https://via.placeholder.com/300x200" alt="Noticia 6">
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2025 AI-COMEX. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    function mostrarSeccion(id) {
+        var secciones = document.getElementsByClassName('seccion');
+        for (var i = 0; i < secciones.length; i++) {
+            secciones[i].style.display = 'none';
+        }
+        var seccion = document.getElementById(id);
+        seccion.style.display = 'block';
+    }
+
+    function mostrarInfoIndicador(indicador) {
+        let mensaje = "";
+        switch (indicador) {
+            case 'petroleo':
+                mensaje = "Petróleo WTI: US$ 71.93. Aumento en la producción y demanda.";
+                break;
+            case 'cafe':
+                mensaje = "Café: US$ 4.20. Precios estables, pero con fluctuaciones.";
+                break;
+            case 'oro':
+                mensaje = "Oro: $3,678,049. Incremento en la inversión en metales preciosos.";
+                break;
+            case 'tasa_usura':
+                mensaje = "Tasa de Usura: 26.30%. Se ha incrementado debido a la inflación.";
+                break;
+            case 'dtf':
+                mensaje = "DTF: 9.27%. Refleja el costo del dinero a corto plazo.";
+                break;
+            case 'cobre':
+                mensaje = "Cobre: US$ 4.50. Estable con tendencia al alza.";
+                break;
+            case 'plata':
+                mensaje = "Plata: US$ 25.00. Aumento moderado en la demanda industrial.";
+                break;
+            case 'maiz':
+                mensaje = "Maíz: US$ 6.00. Incremento en las exportaciones agrícolas.";
+                break;
+            case 'trigo':
+                mensaje = "Trigo: US$ 5.50. Mercado estable con buenas cosechas.";
+                break;
+            case 'soja':
+                mensaje = "Soja: US$ 14.00. Alta demanda en mercados internacionales.";
+                break;
+            default:
+                mensaje = "Información no disponible.";
+        }
+        alert(mensaje);
+    }
+
+    function toggleMenu() {
+        const menu = document.getElementById('hiddenMenu');
+        menu.classList.toggle('active');
+    }
+
+    // Show the first section by default
+    document.addEventListener('DOMContentLoaded', () => {
+        mostrarSeccion('aranceles');
+    });
+</script>
+</body>
+</html>
