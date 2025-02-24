@@ -1,0 +1,28 @@
+  <!-- Contenedor central -->
+       <div class="container"> 
+            <div class="barra-opciones-destacada">
+                <h3>Descubre más funcionalidades</h3>
+                <div class="botones-opciones">
+                    <button id="btn-participantes" onclick="mostrarSeleccion()">
+                        👥 <span>PARTICIPANTES</span>
+                    </button>
+                    <button id="btn-aranceles" onclick="mostrarSeleccion()">
+                        💲 <span>ARANCELES</span>
+                    </button>
+                    <button id="btn-prediccion" onclick="mostrarSeleccion()">
+                        🤖 <span>PREDICCIÓN IA</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        /* Contenedor principal con funcionalidades */
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 50%; /* Ajuste de ancho */
+            max-width: 600px;
+        }
